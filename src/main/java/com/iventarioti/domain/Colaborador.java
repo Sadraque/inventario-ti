@@ -1,11 +1,15 @@
 package com.iventarioti.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -27,16 +31,24 @@ public class Colaborador implements Serializable{
 	private String email;
 	private String telefone;
 	private String funcao;
-	private Integer endereco_id;
+	private Endereco endereco;
+	
+	@OneToMany(mappedBy = "colaborador")
+	private List<Cpu> cpus = new ArrayList<>();
 
-	public Colaborador(String nome, String sobrenome, String email, String telefone, String funcao, Endereco endereco) {
+	public Colaborador(String nome, String sobrenome, String email, String telefone, String funcao) {
 		super();
 		this.nome = nome;
 		this.sobrenome = sobrenome;
 		this.email = email;
 		this.telefone = telefone;
 		this.funcao = funcao;
-		this.endereco_id = endereco.getId()
-;	}
+	}
+
+	public Colaborador() {
+		super();
+	}
+	
+	
 
 }

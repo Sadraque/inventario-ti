@@ -6,7 +6,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import lombok.EqualsAndHashCode;
@@ -16,11 +21,12 @@ import lombok.EqualsAndHashCode;
 @Setter
 @ToString
 @EqualsAndHashCode
-public class Cpu implements Serializable{
+public class Cpu implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+
 	private Integer id;
 	private String fabricante;
 	private String modelo;
@@ -31,7 +37,10 @@ public class Cpu implements Serializable{
 	private Integer hdd;
 	private Integer ssd;
 	private String obs;
-	private Integer colaborador_id;
+
+	@ManyToOne
+	@JoinColumn(name = "colaborador_id")
+	private Colaborador colaborador;
 
 	public Cpu(String fabricante, String modelo, Integer ano, String numeroSerie, String processador, Integer memoria,
 			Integer hdd, Integer ssd, String obs) {
@@ -50,7 +59,5 @@ public class Cpu implements Serializable{
 	public Cpu() {
 		super();
 	}
-	
-	
 
 }
