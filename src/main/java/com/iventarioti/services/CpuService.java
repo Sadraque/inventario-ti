@@ -1,5 +1,7 @@
 package com.iventarioti.services;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,5 +20,11 @@ public class CpuService {
 		Optional<Cpu> obj = cpuRepository.findById(id);
 
 		return obj.orElseThrow();
+	}
+	
+	public List<Cpu> listar() {
+		List<Cpu> obj = cpuRepository.findAll();
+
+		return obj;
 	}
 }

@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.iventarioti.domain.Cpu;
 import com.iventarioti.services.CpuService;
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/cpus")
@@ -22,5 +23,12 @@ public class CpuResource {
 		Cpu cpu = cpuService.buscar(id);
 
 		return ResponseEntity.ok().body(cpu);
+	}
+	
+	@RequestMapping(value = "/all")
+	public ResponseEntity<?> listar() {
+		List<Cpu> lista = cpuService.listar();
+		
+		return ResponseEntity.ok().body(lista);
 	}
 }
