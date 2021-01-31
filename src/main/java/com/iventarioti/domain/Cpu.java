@@ -34,7 +34,7 @@ public class Cpu implements Serializable{
 	private Integer colaborador_id;
 
 	public Cpu(String fabricante, String modelo, Integer ano, String numeroSerie, String processador, Integer memoria,
-			Integer hdd, Integer ssd, String obs, Colaborador colaborador) {
+			Integer hdd, Integer ssd, String obs) {
 		super();
 		this.fabricante = fabricante;
 		this.modelo = modelo;
@@ -45,7 +45,12 @@ public class Cpu implements Serializable{
 		this.hdd = hdd;
 		this.ssd = ssd;
 		this.obs = obs;
-		this.colaborador_id = colaborador.getId();
 	}
+
+	public Cpu() {
+		super();
+	}
+	
+	
 
 }
