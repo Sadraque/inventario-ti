@@ -10,6 +10,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -40,10 +43,11 @@ public class Cpu implements Serializable {
 
 	@ManyToOne
 	@JoinColumn(name = "colaborador_id")
+	@JsonManagedReference
 	private Colaborador colaborador;
 
 	public Cpu(String fabricante, String modelo, Integer ano, String numeroSerie, String processador, Integer memoria,
-			Integer hdd, Integer ssd, String obs) {
+			Integer hdd, Integer ssd, String obs, Colaborador colaborador) {
 		super();
 		this.fabricante = fabricante;
 		this.modelo = modelo;
@@ -54,6 +58,7 @@ public class Cpu implements Serializable {
 		this.hdd = hdd;
 		this.ssd = ssd;
 		this.obs = obs;
+		this.colaborador = colaborador;
 	}
 
 	public Cpu() {

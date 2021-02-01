@@ -10,6 +10,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -34,6 +37,7 @@ public class Colaborador implements Serializable{
 	private Endereco endereco;
 	
 	@OneToMany(mappedBy = "colaborador")
+	@JsonBackReference
 	private List<Cpu> cpus = new ArrayList<>();
 
 	public Colaborador(String nome, String sobrenome, String email, String telefone, String funcao) {

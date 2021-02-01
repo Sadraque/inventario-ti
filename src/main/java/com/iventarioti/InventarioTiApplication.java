@@ -31,8 +31,7 @@ public class InventarioTiApplication  implements CommandLineRunner {
 		Colaborador sadraque = new Colaborador("Sadraque", "Nunes", "sadraquenunesmartiniano@gmail.com", "31 9 83131461", "TI");
 		colaboradorRepositoty.saveAll(Arrays.asList(sadraque));
 		
-		Cpu notebook = new Cpu("Dell", "Inspiron", 2018, "123", "i5", 12, 2000, 512, "");
-		notebook.setColaborador(sadraque);
+		Cpu notebook = new Cpu("Dell", "Inspiron", 2018, "123", "i5", 12, 2000, 512, "", sadraque);
 		cpuRepositoty.saveAll(Arrays.asList(notebook));
 		
 	}
