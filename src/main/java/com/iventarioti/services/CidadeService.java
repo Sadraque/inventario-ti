@@ -26,5 +26,10 @@ public class CidadeService {
 
 		return (obj.isEmpty()) ? null : obj;
 	}
+	
+	public void deletar(Integer id) {
+		
+		cidadeRepository.deleteById(id);
+	}
 
 }
