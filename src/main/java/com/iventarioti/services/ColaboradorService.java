@@ -26,5 +26,10 @@ public class ColaboradorService {
 
 		return (obj.isEmpty()) ? null : obj;
 	}
+	
+	public void deletar(Integer id) {
+		
+		colaboradorRepository.deleteById(id);
+	}
 
 }
