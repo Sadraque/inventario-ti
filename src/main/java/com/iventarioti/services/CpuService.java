@@ -18,12 +18,12 @@ public class CpuService {
 	public Cpu buscar(Integer id) {
 		Optional<Cpu> obj = cpuRepository.findById(id);
 
-		return obj.orElseThrow();
+		return obj.orElse(null);
 	}
 	
 	public List<Cpu> listar() {
 		List<Cpu> obj = cpuRepository.findAll();
 
-		return obj;
+		return (obj.isEmpty()) ? null : obj;
 	}
 }

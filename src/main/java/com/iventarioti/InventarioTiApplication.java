@@ -38,17 +38,17 @@ public class InventarioTiApplication  implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		
-		Cidade cidade1 = new Cidade(100, "Belo Horizonte", "MG");
-		cidadeRepositoty.saveAll(Arrays.asList(cidade1));
-		
-		Endereco endereco1 = new Endereco("Rua Palácio da Liberdade", 78, "Piratininga", 31573360, cidade1);
-		enderecoRepositoty.saveAll(Arrays.asList(endereco1));
-		
-		Colaborador sadraque = new Colaborador("Sadraque", "Nunes", "sadraquenunesmartiniano@gmail.com", "31 9 83131461", "TI", endereco1);
-		colaboradorRepositoty.saveAll(Arrays.asList(sadraque));
-		
-		Cpu notebook = new Cpu("Dell", "Inspiron", 2018, "123", "i5", 12, 2000, 512, "", sadraque);
-		cpuRepositoty.saveAll(Arrays.asList(notebook));
+//		Cidade cidade1 = new Cidade(100, "Belo Horizonte", "MG");
+//		cidadeRepositoty.saveAll(Arrays.asList(cidade1));
+//		
+//		Endereco endereco1 = new Endereco("Rua Palácio da Liberdade", 78, "Piratininga", 31573360, cidade1);
+//		enderecoRepositoty.saveAll(Arrays.asList(endereco1));
+//		
+//		Colaborador sadraque = new Colaborador("Sadraque", "Nunes", "sadraquenunesmartiniano@gmail.com", "31 9 83131461", "TI", endereco1);
+//		colaboradorRepositoty.saveAll(Arrays.asList(sadraque));
+//		
+//		Cpu notebook = new Cpu("Dell", "Inspiron", 2018, "123", "i5", 12, 2000, 512, "", sadraque);
+//		cpuRepositoty.saveAll(Arrays.asList(notebook));
 		
 	}
 

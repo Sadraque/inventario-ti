@@ -1,34 +1,36 @@
 package com.iventarioti.resources;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.iventarioti.domain.Cpu;
-import com.iventarioti.services.CpuService;
-import java.util.List;
+import com.iventarioti.domain.Cidade;
+import com.iventarioti.services.CidadeService;
 
 @RestController
-@RequestMapping(value = "/cpus")
-public class CpuResource {
-
+@RequestMapping(value = "/cidades")
+public class CidadeResource {
+	
 	@Autowired
-	private CpuService cpuService;
-
+	private CidadeService cidadeService;
+	
 	@RequestMapping(value = "/{id}")
 	public ResponseEntity<?> buscar(@PathVariable Integer id) {
 
-		Cpu cpu = cpuService.buscar(id);
+		Cidade cidade = cidadeService.buscar(id);
 
-		return (cpu == null) ? ResponseEntity.notFound().build() : ResponseEntity.ok().body(cpu);
+		return (cidade == null) ? ResponseEntity.notFound().build() : ResponseEntity.ok().body(cidade);
 	}
 	
 	@RequestMapping(value = "/all")
 	public ResponseEntity<?> listar() {
-		List<Cpu> lista = cpuService.listar();
+		List<Cidade> lista = cidadeService.listar();
 		
 		return (lista == null) ? ResponseEntity.notFound().build() : ResponseEntity.ok().body(lista);
 	}
+
 }
