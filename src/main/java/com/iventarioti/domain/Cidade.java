@@ -32,5 +32,9 @@ public class Cidade implements Serializable{
 		this.nome = nome;
 		this.uf = uf;
 	}
+	
+	public Cidade() {
+		super();
+	}
 
 }

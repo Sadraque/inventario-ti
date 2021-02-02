@@ -6,6 +6,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,7 +19,7 @@ import lombok.ToString;
 @Setter
 @ToString
 @EqualsAndHashCode
-public class Endereco implements Serializable{
+public class Endereco implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -26,16 +29,22 @@ public class Endereco implements Serializable{
 	private Integer numero;
 	private String bairro;
 	private Integer cep;
-	private Integer cidade_id;
-	
+
+	@ManyToOne 
+	@JoinColumn(name = "cidade_id") 
+	private Cidade cidade; 
+
 	public Endereco(String endereco, Integer numero, String bairro, Integer cep, Cidade cidade) {
 		super();
 		this.endereco = endereco;
 		this.numero = numero;
 		this.bairro = bairro;
 		this.cep = cep;
-		this.cidade_id = cidade.getId();
+		this.cidade = cidade;
 	}
-	
-	
+
+	public Endereco() {
+		super();
+	}
+
 }

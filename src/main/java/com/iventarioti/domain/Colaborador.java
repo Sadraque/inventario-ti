@@ -8,10 +8,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -23,7 +24,7 @@ import lombok.ToString;
 @Setter
 @ToString
 @EqualsAndHashCode
-public class Colaborador implements Serializable{
+public class Colaborador implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -34,25 +35,27 @@ public class Colaborador implements Serializable{
 	private String email;
 	private String telefone;
 	private String funcao;
-	private Endereco endereco;
 	
+	@ManyToOne 
+	@JoinColumn(name = "endereco_id") 
+	private Endereco endereco;
+
 	@OneToMany(mappedBy = "colaborador")
 	@JsonBackReference
 	private List<Cpu> cpus = new ArrayList<>();
 
-	public Colaborador(String nome, String sobrenome, String email, String telefone, String funcao) {
+	public Colaborador(String nome, String sobrenome, String email, String telefone, String funcao, Endereco endereco) {
 		super();
 		this.nome = nome;
 		this.sobrenome = sobrenome;
 		this.email = email;
 		this.telefone = telefone;
 		this.funcao = funcao;
+		this.endereco = endereco;
 	}
 
 	public Colaborador() {
 		super();
 	}
-	
-	
 
 }
