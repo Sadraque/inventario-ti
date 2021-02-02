@@ -26,4 +26,9 @@ public class CpuService {
 
 		return (obj.isEmpty()) ? null : obj;
 	}
+	
+	public void deletar(Integer id) {
+		
+		cpuRepository.deleteById(id);
+	}
 }
