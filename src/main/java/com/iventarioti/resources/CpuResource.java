@@ -1,6 +1,7 @@
 package com.iventarioti.resources;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -35,8 +36,13 @@ public class CpuResource {
 	
 	@DeleteMapping(value = "/{id}")
 	public ResponseEntity<?> deletar(@PathVariable Integer id) {
-		cpuService.deletar(id);
-		
-		return ResponseEntity.ok().build();
+		try {
+			cpuService.deletar(id);
+
+			return ResponseEntity.ok().build();
+		} catch (EmptyResultDataAccessException e) {
+
+			return ResponseEntity.notFound().build();
+		}
 	}
 }

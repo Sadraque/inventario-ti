@@ -31,7 +31,7 @@ public class ColaboradorService {
 		return (obj.isEmpty()) ? null : obj;
 	}
 	
-	public void deletar(Integer id)  throws EmptyResultDataAccessException {
+	public void deletar(Integer id) throws EmptyResultDataAccessException {
 		Colaborador colaborador = buscar(id);
 		
 		colaboradorRepository.deleteById(id);
