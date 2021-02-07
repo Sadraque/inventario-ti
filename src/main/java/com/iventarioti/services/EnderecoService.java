@@ -1,5 +1,6 @@
 package com.iventarioti.services;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,6 +32,11 @@ public class EnderecoService {
 	public void deletar(Integer id) throws EmptyResultDataAccessException {
 		enderecoRepository.deleteById(id);
 
+	}
+	
+	public void adicionar(Endereco endereco) {
+		enderecoRepository.saveAll(Arrays.asList(endereco));
+		
 	}
 
 }
