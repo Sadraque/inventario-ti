@@ -14,6 +14,9 @@ public class ColaboradorService {
 
 	@Autowired
 	private ColaboradorRepository colaboradorRepository;
+	
+	@Autowired
+	private EnderecoService enderecoService;
 
 	public Colaborador buscar(Integer id) {
 		Optional<Colaborador> obj = colaboradorRepository.findById(id);
@@ -28,8 +31,12 @@ public class ColaboradorService {
 	}
 	
 	public void deletar(Integer id) {
+		Colaborador colaborador = buscar(id);
 		
 		colaboradorRepository.deleteById(id);
+		
+		enderecoService.deletar(colaborador.getEndereco().getId());
+		
 	}
 
 }
