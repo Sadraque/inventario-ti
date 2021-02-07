@@ -3,6 +3,7 @@ package com.iventarioti.resources;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,10 +16,10 @@ import com.iventarioti.services.EnderecoService;
 @RestController
 @RequestMapping(value = "/enderecos")
 public class EnderecoResource {
-	
+
 	@Autowired
 	private EnderecoService enderecoService;
-	
+
 	@RequestMapping(value = "/{id}")
 	public ResponseEntity<?> buscar(@PathVariable Integer id) {
 
@@ -26,19 +27,25 @@ public class EnderecoResource {
 
 		return (endereco == null) ? ResponseEntity.notFound().build() : ResponseEntity.ok().body(endereco);
 	}
-	
+
 	@RequestMapping(value = "/all")
 	public ResponseEntity<?> listar() {
 		List<Endereco> lista = enderecoService.listar();
-		
+
 		return (lista == null) ? ResponseEntity.notFound().build() : ResponseEntity.ok().body(lista);
 	}
-	
+
 	@DeleteMapping(value = "/{id}")
 	public ResponseEntity<?> deletar(@PathVariable Integer id) {
-		enderecoService.deletar(id);
-		
-		return ResponseEntity.ok().build();
+		try {
+			enderecoService.deletar(id);
+
+			return ResponseEntity.ok().build();
+		} catch (EmptyResultDataAccessException e) {
+
+			return ResponseEntity.notFound().build();
+		}
+
 	}
 
 }
