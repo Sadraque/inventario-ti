@@ -14,11 +14,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.iventarioti.domain.Cidade;
-import com.iventarioti.domain.Colaborador;
 import com.iventarioti.services.CidadeService;
 
 @RestController
-@RequestMapping(value = "/cidades")
+@RequestMapping(value = "/inventario-ti/cidades")
 public class CidadeResource {
 	
 	@Autowired

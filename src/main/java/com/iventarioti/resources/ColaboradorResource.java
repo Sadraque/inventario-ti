@@ -17,7 +17,7 @@ import com.iventarioti.domain.Colaborador;
 import com.iventarioti.services.ColaboradorService;
 
 @RestController
-@RequestMapping(value = "/colaboradores")
+@RequestMapping(value = "/inventario-ti/colaboradores")
 public class ColaboradorResource {
 
 	@Autowired

@@ -17,7 +17,7 @@ import java.net.URI;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/cpus")
+@RequestMapping(value = "/inventario-ti/cpus")
 public class CpuResource {
 
 	@Autowired

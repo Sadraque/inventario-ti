@@ -17,7 +17,7 @@ import com.iventarioti.domain.Endereco;
 import com.iventarioti.services.EnderecoService;
 
 @RestController
-@RequestMapping(value = "/enderecos")
+@RequestMapping(value = "/inventario-ti/enderecos")
 public class EnderecoResource {
 
 	@Autowired
