@@ -34,6 +34,11 @@ public class EnderecoService {
 
 	}
 	
+	public void deletar(Endereco endereco) throws EmptyResultDataAccessException {
+		enderecoRepository.delete(endereco);
+
+	}
+	
 	public void adicionar(Endereco endereco) {
 		enderecoRepository.saveAll(Arrays.asList(endereco));
 		

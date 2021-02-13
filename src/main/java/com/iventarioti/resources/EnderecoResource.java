@@ -51,6 +51,19 @@ public class EnderecoResource {
 
 	}
 	
+	@DeleteMapping(value = "")
+	public ResponseEntity<?> deletar(@RequestBody Endereco endereco) {
+		try {
+			enderecoService.deletar(endereco);
+
+			return ResponseEntity.ok().build();
+		} catch (EmptyResultDataAccessException e) {
+
+			return ResponseEntity.notFound().build();
+		}
+
+	}
+	
 	@PostMapping(value = "")
 	public ResponseEntity<?> adicionar(@RequestBody Endereco endereco) {
 		enderecoService.adicionar(endereco);
