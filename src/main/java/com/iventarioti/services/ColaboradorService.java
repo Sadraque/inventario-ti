@@ -1,5 +1,6 @@
 package com.iventarioti.services;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -37,6 +38,11 @@ public class ColaboradorService {
 		colaboradorRepository.deleteById(id);
 		
 		enderecoService.deletar(colaborador.getEndereco().getId());
+		
+	}
+	
+	public void adicionar(Colaborador colaborador) {
+		colaboradorRepository.saveAll(Arrays.asList(colaborador));
 		
 	}
 
