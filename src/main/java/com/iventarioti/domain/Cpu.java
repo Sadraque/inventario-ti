@@ -8,12 +8,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import lombok.EqualsAndHashCode;
 
 @Entity
 @Getter
@@ -37,6 +39,7 @@ public class Cpu implements Serializable {
 	private Integer ssd;
 	private String obs;
 
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "colaborador_id")
 	@JsonManagedReference
