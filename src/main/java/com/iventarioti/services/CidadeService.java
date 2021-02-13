@@ -1,5 +1,6 @@
 package com.iventarioti.services;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,6 +32,11 @@ public class CidadeService {
 	public void deletar(Integer id) throws EmptyResultDataAccessException {
 		
 		cidadeRepository.deleteById(id);
+	}
+	
+	public void adicionar(Cidade cidade) {
+		cidadeRepository.saveAll(Arrays.asList(cidade));
+		
 	}
 
 }

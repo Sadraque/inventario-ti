@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.iventarioti.domain.Cpu;
-import com.iventarioti.domain.Endereco;
 import com.iventarioti.services.CpuService;
 
 import java.net.URI;

@@ -1,5 +1,6 @@
 package com.iventarioti.resources;
 
+import java.net.URI;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,10 +8,13 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.iventarioti.domain.Cidade;
+import com.iventarioti.domain.Colaborador;
 import com.iventarioti.services.CidadeService;
 
 @RestController
@@ -45,6 +49,13 @@ public class CidadeResource {
 
 			return ResponseEntity.notFound().build();
 		}
+	}
+	
+	@PostMapping(value = "")
+	public ResponseEntity<?> adicionar(@RequestBody Cidade cidade) {
+		cidadeService.adicionar(cidade);
+		
+		return ResponseEntity.created(URI.create("/cidades/" +cidade.getId())).body(cidade);
 	}
 
 }
