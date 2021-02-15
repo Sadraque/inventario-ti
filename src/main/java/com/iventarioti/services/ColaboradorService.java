@@ -50,5 +50,11 @@ public class ColaboradorService {
 		colaboradorRepository.saveAll(Arrays.asList(colaborador));
 		
 	}
+	
+	public void atualizar(Colaborador colaborador) {
+		colaboradorRepository.saveAll(Arrays.asList(colaborador));
+		
+	}
+
 
 }
