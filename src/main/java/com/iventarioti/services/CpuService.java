@@ -9,7 +9,6 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import com.iventarioti.domain.Cpu;
-import com.iventarioti.domain.Endereco;
 import com.iventarioti.repositories.CpuRepository;
 
 @Service

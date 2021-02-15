@@ -50,6 +50,19 @@ public class ColaboradorResource {
 		}
 	}
 	
+	@DeleteMapping(value = "")
+	public ResponseEntity<?> deletar(@RequestBody Colaborador colaborador) {
+		try {
+			colaboradorService.deletar(colaborador);
+
+			return ResponseEntity.ok().build();
+		} catch (EmptyResultDataAccessException e) {
+
+			return ResponseEntity.notFound().build();
+		}
+
+	}
+	
 	@PostMapping(value = "")
 	public ResponseEntity<?> adicionar(@RequestBody Colaborador colaborador) {
 		colaboradorService.adicionar(colaborador);

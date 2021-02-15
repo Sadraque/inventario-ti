@@ -41,6 +41,11 @@ public class ColaboradorService {
 		
 	}
 	
+	public void deletar(Colaborador colaborador) throws EmptyResultDataAccessException {
+		colaboradorRepository.delete(colaborador);
+
+	}
+	
 	public void adicionar(Colaborador colaborador) {
 		colaboradorRepository.saveAll(Arrays.asList(colaborador));
 		
