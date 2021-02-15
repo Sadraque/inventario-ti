@@ -43,5 +43,10 @@ public class EnderecoService {
 		enderecoRepository.saveAll(Arrays.asList(endereco));
 		
 	}
+	
+	public void atualizar(Endereco endereco) {
+		enderecoRepository.saveAll(Arrays.asList(endereco));
+		
+	}
 
 }

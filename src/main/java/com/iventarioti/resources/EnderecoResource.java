@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -69,6 +70,13 @@ public class EnderecoResource {
 		enderecoService.adicionar(endereco);
 		
 		return ResponseEntity.created(URI.create("/enderecos/" +endereco.getId())).body(endereco);
+	}
+	
+	@PutMapping(value = "")
+	public ResponseEntity<?> atualizar(@RequestBody Endereco endereco) {
+		enderecoService.atualizar(endereco);
+		
+		return ResponseEntity.ok().build();
 	}
 
 }
