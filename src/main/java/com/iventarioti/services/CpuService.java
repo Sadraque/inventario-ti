@@ -5,9 +5,11 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import com.iventarioti.domain.Cpu;
+import com.iventarioti.domain.Endereco;
 import com.iventarioti.repositories.CpuRepository;
 
 @Service
@@ -31,6 +33,11 @@ public class CpuService {
 	public void deletar(Integer id) {
 		
 		cpuRepository.deleteById(id);
+	}
+	
+	public void deletar(Cpu cpu) throws EmptyResultDataAccessException {
+		cpuRepository.delete(cpu);
+
 	}
 	
 	public void adicionar(Cpu cpu) {

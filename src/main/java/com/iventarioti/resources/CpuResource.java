@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.iventarioti.domain.Cpu;
+import com.iventarioti.domain.Endereco;
 import com.iventarioti.services.CpuService;
 
 import java.net.URI;
@@ -48,6 +49,19 @@ public class CpuResource {
 
 			return ResponseEntity.notFound().build();
 		}
+	}
+	
+	@DeleteMapping(value = "")
+	public ResponseEntity<?> deletar(@RequestBody Cpu cpu) {
+		try {
+			cpuService.deletar(cpu);
+
+			return ResponseEntity.ok().build();
+		} catch (EmptyResultDataAccessException e) {
+
+			return ResponseEntity.notFound().build();
+		}
+
 	}
 	
 	@PostMapping(value = "")
