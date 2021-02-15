@@ -43,4 +43,9 @@ public class CpuService {
 		cpuRepository.saveAll(Arrays.asList(cpu));
 		
 	}
+	
+	public void atualizar(Cpu cpu) {
+		cpuRepository.saveAll(Arrays.asList(cpu));
+		
+	}
 }
