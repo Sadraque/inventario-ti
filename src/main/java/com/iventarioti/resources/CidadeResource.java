@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -50,11 +51,31 @@ public class CidadeResource {
 		}
 	}
 	
+	@DeleteMapping(value = "")
+	public ResponseEntity<?> deletar(@RequestBody Cidade cidade) {
+		try {
+			cidadeService.deletar(cidade);
+
+			return ResponseEntity.ok().build();
+		} catch (EmptyResultDataAccessException e) {
+
+			return ResponseEntity.notFound().build();
+		}
+
+	}
+	
 	@PostMapping(value = "")
 	public ResponseEntity<?> adicionar(@RequestBody Cidade cidade) {
 		cidadeService.adicionar(cidade);
 		
 		return ResponseEntity.created(URI.create("/cidades/" +cidade.getId())).body(cidade);
+	}
+	
+	@PutMapping(value = "")
+	public ResponseEntity<?> atualizar(@RequestBody Cidade cidade) {
+		cidadeService.atualizar(cidade);
+		
+		return ResponseEntity.ok().build();
 	}
 
 }

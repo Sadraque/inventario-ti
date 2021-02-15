@@ -34,7 +34,17 @@ public class CidadeService {
 		cidadeRepository.deleteById(id);
 	}
 	
+	public void deletar(Cidade cidade) throws EmptyResultDataAccessException {
+		cidadeRepository.delete(cidade);
+
+	}
+	
 	public void adicionar(Cidade cidade) {
+		cidadeRepository.saveAll(Arrays.asList(cidade));
+		
+	}
+	
+	public void atualizar(Cidade cidade) {
 		cidadeRepository.saveAll(Arrays.asList(cidade));
 		
 	}
