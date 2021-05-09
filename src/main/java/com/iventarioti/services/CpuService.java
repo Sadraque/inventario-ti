@@ -17,7 +17,7 @@ public class CpuService {
 	@Autowired
 	private CpuRepository cpuRepository;
 
-	public Cpu buscar(Integer id) {
+	public Cpu buscar(Long id) {
 		Optional<Cpu> obj = cpuRepository.findById(id);
 
 		return obj.orElse(null);
@@ -29,7 +29,7 @@ public class CpuService {
 		return (obj.isEmpty()) ? null : obj;
 	}
 	
-	public void deletar(Integer id) {
+	public void deletar(Long id) {
 		
 		cpuRepository.deleteById(id);
 	}

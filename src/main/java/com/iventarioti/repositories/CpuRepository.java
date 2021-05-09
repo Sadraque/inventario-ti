@@ -5,6 +5,6 @@ import org.springframework.stereotype.Repository;
 import com.iventarioti.domain.Cpu;
 
 @Repository
-public interface CpuRepository extends JpaRepository<Cpu, Integer>{
+public interface CpuRepository extends JpaRepository<Cpu, Long>{
 
 }

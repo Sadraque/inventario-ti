@@ -1,4 +1,4 @@
-package com.iventarioti.resources;
+package com.iventarioti.controllers;
 
 import java.net.URI;
 import java.util.List;
@@ -14,48 +14,47 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.iventarioti.domain.Endereco;
-import com.iventarioti.services.EnderecoService;
+import com.iventarioti.domain.Colaborador;
+import com.iventarioti.services.ColaboradorService;
 
 @RestController
-@RequestMapping(value = "/inventario-ti/enderecos")
-public class EnderecoResource {
+@RequestMapping(value = "/inventario-ti/colaboradores")
+public class ColaboradorResource {
 
 	@Autowired
-	private EnderecoService enderecoService;
+	private ColaboradorService colaboradorService;
 
 	@RequestMapping(value = "/{id}")
-	public ResponseEntity<?> buscar(@PathVariable Integer id) {
+	public ResponseEntity<?> buscar(@PathVariable Long id) {
 
-		Endereco endereco = enderecoService.buscar(id);
+		Colaborador colaborador = colaboradorService.buscar(id);
 
-		return (endereco == null) ? ResponseEntity.notFound().build() : ResponseEntity.ok().body(endereco);
+		return (colaborador == null) ? ResponseEntity.notFound().build() : ResponseEntity.ok().body(colaborador);
 	}
 
 	@RequestMapping(value = "/all")
 	public ResponseEntity<?> listar() {
-		List<Endereco> lista = enderecoService.listar();
+		List<Colaborador> lista = colaboradorService.listar();
 
 		return (lista == null) ? ResponseEntity.notFound().build() : ResponseEntity.ok().body(lista);
 	}
 
 	@DeleteMapping(value = "/{id}")
-	public ResponseEntity<?> deletar(@PathVariable Integer id) {
+	public ResponseEntity<?> deletar(@PathVariable Long id) {
 		try {
-			enderecoService.deletar(id);
+			colaboradorService.deletar(id);
 
 			return ResponseEntity.ok().build();
 		} catch (EmptyResultDataAccessException e) {
 
 			return ResponseEntity.notFound().build();
 		}
-
 	}
 	
 	@DeleteMapping(value = "")
-	public ResponseEntity<?> deletar(@RequestBody Endereco endereco) {
+	public ResponseEntity<?> deletar(@RequestBody Colaborador colaborador) {
 		try {
-			enderecoService.deletar(endereco);
+			colaboradorService.deletar(colaborador);
 
 			return ResponseEntity.ok().build();
 		} catch (EmptyResultDataAccessException e) {
@@ -66,17 +65,17 @@ public class EnderecoResource {
 	}
 	
 	@PostMapping(value = "")
-	public ResponseEntity<?> adicionar(@RequestBody Endereco endereco) {
-		enderecoService.adicionar(endereco);
+	public ResponseEntity<?> adicionar(@RequestBody Colaborador colaborador) {
+		colaboradorService.adicionar(colaborador);
 		
-		return ResponseEntity.created(URI.create("/enderecos/" +endereco.getId())).body(endereco);
+		return ResponseEntity.created(URI.create("/colaboradores/" +colaborador.getId())).body(colaborador);
 	}
 	
 	@PutMapping(value = "")
-	public ResponseEntity<?> atualizar(@RequestBody Endereco endereco) {
-		enderecoService.atualizar(endereco);
+	public ResponseEntity<?> atualizar(@RequestBody Colaborador colaborador) {
+		colaboradorService.atualizar(colaborador);
 		
 		return ResponseEntity.ok().build();
 	}
-
+	
 }

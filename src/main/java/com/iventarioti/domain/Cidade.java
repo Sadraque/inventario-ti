@@ -2,16 +2,15 @@ package com.iventarioti.domain;
 
 import java.io.Serializable;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
 @Entity
+@Table(name = "t_cidade")
 @Getter
 @Setter
 @ToString
@@ -21,12 +20,19 @@ public class Cidade implements Serializable{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
-	private Integer codigo;
+	@Column(name = "id")
+	private Long id;
+
+	@Column(name = "codigo")
+	private Long codigo;
+
+	@Column(name = "nome")
 	private String nome;
+
+	@Column(name = "uf")
 	private String uf;
 
-	public Cidade(Integer codigo, String nome, String uf) {
+	public Cidade(Long codigo, String nome, String uf) {
 		super();
 		this.codigo = codigo;
 		this.nome = nome;

@@ -17,7 +17,7 @@ public class CidadeService {
 	@Autowired
 	private CidadeRepository cidadeRepository;
 	
-	public Cidade buscar(Integer id) {
+	public Cidade buscar(Long id) {
 		Optional<Cidade> obj = cidadeRepository.findById(id);
 
 		return obj.orElse(null);
@@ -29,7 +29,7 @@ public class CidadeService {
 		return (obj.isEmpty()) ? null : obj;
 	}
 	
-	public void deletar(Integer id) throws EmptyResultDataAccessException {
+	public void deletar(Long id) throws EmptyResultDataAccessException {
 		
 		cidadeRepository.deleteById(id);
 	}

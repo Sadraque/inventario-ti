@@ -17,7 +17,7 @@ public class EnderecoService {
 	@Autowired
 	private EnderecoRepository enderecoRepository;
 
-	public Endereco buscar(Integer id) {
+	public Endereco buscar(Long id) {
 		Optional<Endereco> obj = enderecoRepository.findById(id);
 
 		return obj.orElse(null);
@@ -29,7 +29,7 @@ public class EnderecoService {
 		return (obj.isEmpty()) ? null : obj;
 	}
 
-	public void deletar(Integer id) throws EmptyResultDataAccessException {
+	public void deletar(Long id) throws EmptyResultDataAccessException {
 		enderecoRepository.deleteById(id);
 
 	}

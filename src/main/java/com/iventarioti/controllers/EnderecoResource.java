@@ -1,4 +1,4 @@
-package com.iventarioti.resources;
+package com.iventarioti.controllers;
 
 import java.net.URI;
 import java.util.List;
@@ -14,47 +14,48 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.iventarioti.domain.Cidade;
-import com.iventarioti.services.CidadeService;
+import com.iventarioti.domain.Endereco;
+import com.iventarioti.services.EnderecoService;
 
 @RestController
-@RequestMapping(value = "/inventario-ti/cidades")
-public class CidadeResource {
-	
+@RequestMapping(value = "/inventario-ti/enderecos")
+public class EnderecoResource {
+
 	@Autowired
-	private CidadeService cidadeService;
-	
+	private EnderecoService enderecoService;
+
 	@RequestMapping(value = "/{id}")
-	public ResponseEntity<?> buscar(@PathVariable Integer id) {
+	public ResponseEntity<?> buscar(@PathVariable Long id) {
 
-		Cidade cidade = cidadeService.buscar(id);
+		Endereco endereco = enderecoService.buscar(id);
 
-		return (cidade == null) ? ResponseEntity.notFound().build() : ResponseEntity.ok().body(cidade);
+		return (endereco == null) ? ResponseEntity.notFound().build() : ResponseEntity.ok().body(endereco);
 	}
-	
+
 	@RequestMapping(value = "/all")
 	public ResponseEntity<?> listar() {
-		List<Cidade> lista = cidadeService.listar();
-		
+		List<Endereco> lista = enderecoService.listar();
+
 		return (lista == null) ? ResponseEntity.notFound().build() : ResponseEntity.ok().body(lista);
 	}
-	
+
 	@DeleteMapping(value = "/{id}")
-	public ResponseEntity<?> deletar(@PathVariable Integer id) {
+	public ResponseEntity<?> deletar(@PathVariable Long id) {
 		try {
-			cidadeService.deletar(id);
+			enderecoService.deletar(id);
 
 			return ResponseEntity.ok().build();
 		} catch (EmptyResultDataAccessException e) {
 
 			return ResponseEntity.notFound().build();
 		}
+
 	}
 	
 	@DeleteMapping(value = "")
-	public ResponseEntity<?> deletar(@RequestBody Cidade cidade) {
+	public ResponseEntity<?> deletar(@RequestBody Endereco endereco) {
 		try {
-			cidadeService.deletar(cidade);
+			enderecoService.deletar(endereco);
 
 			return ResponseEntity.ok().build();
 		} catch (EmptyResultDataAccessException e) {
@@ -65,15 +66,15 @@ public class CidadeResource {
 	}
 	
 	@PostMapping(value = "")
-	public ResponseEntity<?> adicionar(@RequestBody Cidade cidade) {
-		cidadeService.adicionar(cidade);
+	public ResponseEntity<?> adicionar(@RequestBody Endereco endereco) {
+		enderecoService.adicionar(endereco);
 		
-		return ResponseEntity.created(URI.create("/cidades/" +cidade.getId())).body(cidade);
+		return ResponseEntity.created(URI.create("/enderecos/" +endereco.getId())).body(endereco);
 	}
 	
 	@PutMapping(value = "")
-	public ResponseEntity<?> atualizar(@RequestBody Cidade cidade) {
-		cidadeService.atualizar(cidade);
+	public ResponseEntity<?> atualizar(@RequestBody Endereco endereco) {
+		enderecoService.atualizar(endereco);
 		
 		return ResponseEntity.ok().build();
 	}

@@ -5,6 +5,6 @@ import org.springframework.stereotype.Repository;
 import com.iventarioti.domain.Colaborador;
 
 @Repository
-public interface ColaboradorRepository extends JpaRepository<Colaborador, Integer>{
+public interface ColaboradorRepository extends JpaRepository<Colaborador, Long>{
 
 }

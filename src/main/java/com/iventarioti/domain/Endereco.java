@@ -1,13 +1,9 @@
 package com.iventarioti.domain;
 
 import java.io.Serializable;
+import java.util.Date;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -15,6 +11,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Entity
+@Table(name = "t_endereco")
 @Getter
 @Setter
 @ToString
@@ -24,23 +21,36 @@ public class Endereco implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+	@Column(name = "codigo")
+	private Long id;
+
+	@Column(name = "endereco")
 	private String endereco;
+
+	@Column(name = "numero")
 	private Integer numero;
+
+	@Column(name = "bairro")
 	private String bairro;
+
+	@Column(name = "cep")
 	private Integer cep;
 
 	@ManyToOne 
-	@JoinColumn(name = "cidade_id") 
-	private Cidade cidade; 
+	@JoinColumn(name = "fk_cidade")
+	private Cidade cidade;
 
-	public Endereco(String endereco, Integer numero, String bairro, Integer cep, Cidade cidade) {
+	@Column(name = "data_alteracao")
+	private Date dataAlteracao;
+
+	public Endereco(String endereco, Integer numero, String bairro, Integer cep, Cidade cidade, Date dataAlteracao) {
 		super();
 		this.endereco = endereco;
 		this.numero = numero;
 		this.bairro = bairro;
 		this.cep = cep;
 		this.cidade = cidade;
+		this.dataAlteracao = dataAlteracao;
 	}
 
 	public Endereco() {

@@ -20,7 +20,7 @@ public class ColaboradorService {
 	@Autowired
 	private EnderecoService enderecoService;
 
-	public Colaborador buscar(Integer id) {
+	public Colaborador buscar(Long id) {
 		Optional<Colaborador> obj = colaboradorRepository.findById(id);
 
 		return obj.orElse(null);
@@ -32,7 +32,7 @@ public class ColaboradorService {
 		return (obj.isEmpty()) ? null : obj;
 	}
 	
-	public void deletar(Integer id) throws EmptyResultDataAccessException {
+	public void deletar(Long id) throws EmptyResultDataAccessException {
 		Colaborador colaborador = buscar(id);
 		
 		colaboradorRepository.deleteById(id);

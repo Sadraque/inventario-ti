@@ -1,13 +1,9 @@
 package com.iventarioti.domain;
 
 import java.io.Serializable;
+import java.util.Date;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -18,6 +14,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Entity
+@Table(name = "t_cpu")
 @Getter
 @Setter
 @ToString
@@ -27,26 +24,50 @@ public class Cpu implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "codigo")
+	private Long id;
 
-	private Integer id;
+	@Column(name = "fabricante")
 	private String fabricante;
+
+	@Column(name = "modelo")
 	private String modelo;
+
+	@Column(name = "ano")
 	private Integer ano;
+
+	@Column(name = "numero_serie")
 	private String numeroSerie;
+
+	@Column(name = "processador")
 	private String processador;
+
+	@Column(name = "memoria_ram")
 	private Integer memoria;
+
+	@Column(name = "memoria_hdd")
 	private Integer hdd;
+
+	@Column(name = "memoria_ssd")
 	private Integer ssd;
-	private String obs;
+
+	@Column(name = "observacao")
+	private String observacao;
+
+	@Column(name = "status")
+	private String status;
 
 	@JsonIgnore
 	@ManyToOne
-	@JoinColumn(name = "colaborador_id")
+	@JoinColumn(name = "fk_colaborador")
 	@JsonManagedReference
 	private Colaborador colaborador;
 
+	@Column(name = "data_alteracao")
+	private Date dataAlteracao;
+
 	public Cpu(String fabricante, String modelo, Integer ano, String numeroSerie, String processador, Integer memoria,
-			Integer hdd, Integer ssd, String obs, Colaborador colaborador) {
+			Integer hdd, Integer ssd, String observacao, Colaborador colaborador, Date dataAlteracao, String status) {
 		super();
 		this.fabricante = fabricante;
 		this.modelo = modelo;
@@ -56,8 +77,10 @@ public class Cpu implements Serializable {
 		this.memoria = memoria;
 		this.hdd = hdd;
 		this.ssd = ssd;
-		this.obs = obs;
+		this.observacao = observacao;
 		this.colaborador = colaborador;
+		this.dataAlteracao = dataAlteracao;
+		this.status = status;
 	}
 
 	public Cpu() {

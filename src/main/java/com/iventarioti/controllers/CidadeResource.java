@@ -1,4 +1,7 @@
-package com.iventarioti.resources;
+package com.iventarioti.controllers;
+
+import java.net.URI;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -11,38 +14,35 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.iventarioti.domain.Cpu;
-import com.iventarioti.services.CpuService;
-
-import java.net.URI;
-import java.util.List;
+import com.iventarioti.domain.Cidade;
+import com.iventarioti.services.CidadeService;
 
 @RestController
-@RequestMapping(value = "/inventario-ti/cpus")
-public class CpuResource {
-
+@RequestMapping(value = "/inventario-ti/cidades")
+public class CidadeResource {
+	
 	@Autowired
-	private CpuService cpuService;
-
+	private CidadeService cidadeService;
+	
 	@RequestMapping(value = "/{id}")
-	public ResponseEntity<?> buscar(@PathVariable Integer id) {
+	public ResponseEntity<?> buscar(@PathVariable Long id) {
 
-		Cpu cpu = cpuService.buscar(id);
+		Cidade cidade = cidadeService.buscar(id);
 
-		return (cpu == null) ? ResponseEntity.notFound().build() : ResponseEntity.ok().body(cpu);
+		return (cidade == null) ? ResponseEntity.notFound().build() : ResponseEntity.ok().body(cidade);
 	}
 	
 	@RequestMapping(value = "/all")
 	public ResponseEntity<?> listar() {
-		List<Cpu> lista = cpuService.listar();
+		List<Cidade> lista = cidadeService.listar();
 		
 		return (lista == null) ? ResponseEntity.notFound().build() : ResponseEntity.ok().body(lista);
 	}
 	
 	@DeleteMapping(value = "/{id}")
-	public ResponseEntity<?> deletar(@PathVariable Integer id) {
+	public ResponseEntity<?> deletar(@PathVariable Long id) {
 		try {
-			cpuService.deletar(id);
+			cidadeService.deletar(id);
 
 			return ResponseEntity.ok().build();
 		} catch (EmptyResultDataAccessException e) {
@@ -52,9 +52,9 @@ public class CpuResource {
 	}
 	
 	@DeleteMapping(value = "")
-	public ResponseEntity<?> deletar(@RequestBody Cpu cpu) {
+	public ResponseEntity<?> deletar(@RequestBody Cidade cidade) {
 		try {
-			cpuService.deletar(cpu);
+			cidadeService.deletar(cidade);
 
 			return ResponseEntity.ok().build();
 		} catch (EmptyResultDataAccessException e) {
@@ -65,16 +65,17 @@ public class CpuResource {
 	}
 	
 	@PostMapping(value = "")
-	public ResponseEntity<?> adicionar(@RequestBody Cpu cpu) {
-		cpuService.adicionar(cpu);
+	public ResponseEntity<?> adicionar(@RequestBody Cidade cidade) {
+		cidadeService.adicionar(cidade);
 		
-		return ResponseEntity.created(URI.create("/cpus/" +cpu.getId())).body(cpu);
+		return ResponseEntity.created(URI.create("/cidades/" +cidade.getId())).body(cidade);
 	}
 	
 	@PutMapping(value = "")
-	public ResponseEntity<?> atualizar(@RequestBody Cpu cpu) {
-		cpuService.atualizar(cpu);
+	public ResponseEntity<?> atualizar(@RequestBody Cidade cidade) {
+		cidadeService.atualizar(cidade);
 		
 		return ResponseEntity.ok().build();
 	}
+
 }
