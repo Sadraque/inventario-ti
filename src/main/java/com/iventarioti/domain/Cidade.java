@@ -4,17 +4,17 @@ import java.io.Serializable;
 
 import javax.persistence.*;
 
+import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @Entity
 @Table(name = "t_cidade")
-@Getter
-@Setter
 @ToString
 @EqualsAndHashCode
+@NoArgsConstructor
+@AllArgsConstructor
 public class Cidade implements Serializable{
 	private static final long serialVersionUID = 1L;
 
@@ -31,16 +31,5 @@ public class Cidade implements Serializable{
 
 	@Column(name = "uf")
 	private String uf;
-
-	public Cidade(Long codigo, String nome, String uf) {
-		super();
-		this.codigo = codigo;
-		this.nome = nome;
-		this.uf = uf;
-	}
-	
-	public Cidade() {
-		super();
-	}
 
 }
