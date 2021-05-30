@@ -9,9 +9,11 @@ import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.hibernate.annotations.Where;
 
 @Entity
 @Table(name = "t_endereco")
+@Where(clause = "excluido = false")
 @ToString
 @EqualsAndHashCode
 @NoArgsConstructor

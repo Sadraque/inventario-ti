@@ -3,6 +3,7 @@ package com.iventarioti.controllers;
 import java.net.URI;
 import java.util.List;
 
+import com.iventarioti.domain.dto.ColaboradorDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.ResponseEntity;
@@ -27,7 +28,7 @@ public class ColaboradorResource {
 	@RequestMapping(value = "/{id}")
 	public ResponseEntity<?> buscar(@PathVariable Long id) {
 
-		Colaborador colaborador = colaboradorService.buscar(id);
+		ColaboradorDTO colaborador = colaboradorService.buscar(id);
 
 		return (colaborador == null) ? ResponseEntity.notFound().build() : ResponseEntity.ok().body(colaborador);
 	}
@@ -64,12 +65,12 @@ public class ColaboradorResource {
 
 	}
 	
-	@PostMapping(value = "")
+/*	@PostMapping(value = "")
 	public ResponseEntity<?> adicionar(@RequestBody Colaborador colaborador) {
 		colaboradorService.adicionar(colaborador);
 		
 		return ResponseEntity.created(URI.create("/colaboradores/" +colaborador.getId())).body(colaborador);
-	}
+	}*/
 	
 	@PutMapping(value = "")
 	public ResponseEntity<?> atualizar(@RequestBody Colaborador colaborador) {

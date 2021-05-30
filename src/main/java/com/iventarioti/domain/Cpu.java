@@ -1,23 +1,23 @@
 package com.iventarioti.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import com.sun.istack.NotNull;
+import lombok.*;
+import org.hibernate.annotations.Where;
 
 import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.*;
 
-
-
 @Entity
 @Table(name = "t_cpu")
+@Where(clause = "excluido = false")
 @ToString
 @EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
+@Getter
+@Setter
 public class Cpu implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -27,6 +27,7 @@ public class Cpu implements Serializable {
 	private Long id;
 
 	@Column(name = "fk_fabricante")
+	@NotNull
 	private Long fabricante;
 
 	@Column(name = "modelo")

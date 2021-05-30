@@ -6,17 +6,18 @@ import java.util.Date;
 
 import javax.persistence.*;
 
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
+import org.hibernate.annotations.Where;
 
 @Entity
 @Table(name = "t_colaborador")
+@Where(clause = "excluido = false")
 @ToString
 @EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
+@Getter
+@Setter
 public class Colaborador implements Serializable {
 	private static final long serialVersionUID = 1L;
 

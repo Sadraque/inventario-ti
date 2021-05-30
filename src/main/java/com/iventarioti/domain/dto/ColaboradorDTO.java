@@ -1,18 +1,9 @@
 package com.iventarioti.domain.dto;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
-import java.util.ArrayList;
-import java.util.List;
+import lombok.*;
 
-@Getter
-@Setter
-@ToString
-@EqualsAndHashCode
+@Data
 public class ColaboradorDTO {
-
 	private Integer id;
 	private String nome;
 	private String sobrenome;
@@ -20,6 +11,4 @@ public class ColaboradorDTO {
 	private String telefone;
 	private String funcao;
 	private EnderecoDTO endereco;
-	private List<CpuDTO> cpus = new ArrayList<>();
-
 }

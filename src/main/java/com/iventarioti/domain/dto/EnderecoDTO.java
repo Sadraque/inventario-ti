@@ -1,21 +1,13 @@
 package com.iventarioti.domain.dto;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
-@Getter
-@Setter
-@ToString
-@EqualsAndHashCode
+@Data
 public class EnderecoDTO {
-
 	private Integer id;
 	private String endereco;
 	private Integer numero;
 	private String bairro;
 	private Integer cep;
 	private CidadeDTO cidadeDTO;
-
 }

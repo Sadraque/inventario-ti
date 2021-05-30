@@ -4,6 +4,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
+import com.iventarioti.domain.dto.ColaboradorDTO;
+import com.iventarioti.util.TypeConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
@@ -20,10 +22,13 @@ public class ColaboradorService {
 	@Autowired
 	private EnderecoService enderecoService;
 
-	public Colaborador buscar(Long id) {
+	@Autowired
+	private TypeConverter typeConverter;
+
+	public ColaboradorDTO buscar(Long id) {
 		Optional<Colaborador> obj = colaboradorRepository.findById(id);
 
-		return obj.orElse(null);
+		return typeConverter.parseToDTO(obj.get(), ColaboradorDTO.class);
 	}
 
 	public List<Colaborador> listar() {
@@ -33,11 +38,11 @@ public class ColaboradorService {
 	}
 	
 	public void deletar(Long id) throws EmptyResultDataAccessException {
-		Colaborador colaborador = buscar(id);
+		//Colaborador colaborador = buscar(id);
 		
 		colaboradorRepository.deleteById(id);
 		
-		enderecoService.deletar(colaborador.getEndereco().getId());
+		//enderecoService.deletar(colaborador.getEndereco().getId());
 		
 	}
 	

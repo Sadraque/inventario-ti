@@ -3,18 +3,14 @@ package com.iventarioti.controllers;
 import java.net.URI;
 import java.util.List;
 
+import com.iventarioti.domain.dto.CidadeDTO;
+import com.iventarioti.domain.dto.save.CidadeSaveDTO;
+import com.iventarioti.exceptions.InventarioTiNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import com.iventarioti.domain.Cidade;
 import com.iventarioti.services.CidadeService;
 
 @RestController
@@ -25,24 +21,24 @@ public class CidadeResource {
 	private CidadeService cidadeService;
 	
 	@RequestMapping(value = "/{id}")
-	public ResponseEntity<?> buscar(@PathVariable Long id) {
+	public ResponseEntity<?> findById(@PathVariable Long id) throws InventarioTiNotFoundException {
 
-		Cidade cidade = cidadeService.buscar(id);
+		CidadeDTO cidade = cidadeService.findById(id);
 
 		return (cidade == null) ? ResponseEntity.notFound().build() : ResponseEntity.ok().body(cidade);
 	}
 	
-	@RequestMapping(value = "/all")
-	public ResponseEntity<?> listar() {
-		List<Cidade> lista = cidadeService.listar();
+	@RequestMapping(value = "/find-all")
+	public ResponseEntity<?> findAll() throws InventarioTiNotFoundException {
+		List<CidadeDTO> cidades = cidadeService.findAll();
 		
-		return (lista == null) ? ResponseEntity.notFound().build() : ResponseEntity.ok().body(lista);
+		return (cidades == null) ? ResponseEntity.notFound().build() : ResponseEntity.ok().body(cidades);
 	}
 	
 	@DeleteMapping(value = "/{id}")
 	public ResponseEntity<?> deletar(@PathVariable Long id) {
 		try {
-			cidadeService.deletar(id);
+			cidadeService.delete(id);
 
 			return ResponseEntity.ok().build();
 		} catch (EmptyResultDataAccessException e) {
@@ -50,30 +46,17 @@ public class CidadeResource {
 			return ResponseEntity.notFound().build();
 		}
 	}
-	
-	@DeleteMapping(value = "")
-	public ResponseEntity<?> deletar(@RequestBody Cidade cidade) {
-		try {
-			cidadeService.deletar(cidade);
 
-			return ResponseEntity.ok().build();
-		} catch (EmptyResultDataAccessException e) {
-
-			return ResponseEntity.notFound().build();
-		}
-
-	}
-	
 	@PostMapping(value = "")
-	public ResponseEntity<?> adicionar(@RequestBody Cidade cidade) {
-		cidadeService.adicionar(cidade);
+	public ResponseEntity<?> save(@RequestBody CidadeSaveDTO cidade) {
+		cidadeService.save(cidade);
 		
-		return ResponseEntity.created(URI.create("/cidades/" +cidade.getId())).body(cidade);
+		return ResponseEntity.created(URI.create("/cpus/")).body(cidade);
 	}
 	
 	@PutMapping(value = "")
-	public ResponseEntity<?> atualizar(@RequestBody Cidade cidade) {
-		cidadeService.atualizar(cidade);
+	public ResponseEntity<?> update(@RequestBody CidadeDTO cidade) throws InventarioTiNotFoundException {
+		cidadeService.update(cidade);
 		
 		return ResponseEntity.ok().build();
 	}

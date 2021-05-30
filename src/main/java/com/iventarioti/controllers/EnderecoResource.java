@@ -65,12 +65,12 @@ public class EnderecoResource {
 
 	}
 	
-	@PostMapping(value = "")
+/*	@PostMapping(value = "")
 	public ResponseEntity<?> adicionar(@RequestBody Endereco endereco) {
 		enderecoService.adicionar(endereco);
 		
 		return ResponseEntity.created(URI.create("/enderecos/" +endereco.getId())).body(endereco);
-	}
+	}*/
 	
 	@PutMapping(value = "")
 	public ResponseEntity<?> atualizar(@RequestBody Endereco endereco) {

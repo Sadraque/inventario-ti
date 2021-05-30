@@ -4,10 +4,7 @@ import java.io.Serializable;
 
 import javax.persistence.*;
 
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 @Entity
 @Table(name = "t_cidade")
@@ -15,6 +12,8 @@ import lombok.ToString;
 @EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
+@Getter
+@Setter
 public class Cidade implements Serializable{
 	private static final long serialVersionUID = 1L;
 

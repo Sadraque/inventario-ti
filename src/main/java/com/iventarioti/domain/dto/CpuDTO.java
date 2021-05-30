@@ -1,18 +1,11 @@
 package com.iventarioti.domain.dto;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
-@Getter
-@Setter
-@ToString
-@EqualsAndHashCode
+@Data
 public class CpuDTO {
-
-	private Integer id;
-	private String fabricante;
+	private Long id;
+	private Long fabricante;
 	private String modelo;
 	private Integer ano;
 	private String numeroSerie;
@@ -20,7 +13,7 @@ public class CpuDTO {
 	private Integer memoria;
 	private Integer hdd;
 	private Integer ssd;
-	private String obs;
-	private ColaboradorDTO colaborador;
-
+	private String status;
+	private String observacao;
+	private Long colaborador;
 }
