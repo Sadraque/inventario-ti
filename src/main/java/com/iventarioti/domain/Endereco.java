@@ -1,53 +1,27 @@
 package com.iventarioti.domain;
 
-import java.io.Serializable;
-import java.util.Date;
-
 import javax.persistence.*;
 
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
-import org.hibernate.annotations.Where;
+import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 @Entity
 @Table(name = "t_endereco")
-@Where(clause = "excluido = false")
 @ToString
-@EqualsAndHashCode
+@SuperBuilder
+@EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 @AllArgsConstructor
-public class Endereco implements Serializable {
-	private static final long serialVersionUID = 1L;
+@Getter
+@Setter
+public class Endereco extends BasicEntity {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "codigo")
-	private Long id;
-
-	@Column(name = "endereco")
 	private String endereco;
-
-	@Column(name = "numero")
 	private Integer numero;
-
-	@Column(name = "bairro")
 	private String bairro;
-
-	@Column(name = "cep")
+	private String complemento;
 	private Integer cep;
-
-	@Column(name = "fk_cidade")
-	private Long cidade;
-
-	@Column(name = "data_cadastro")
-	private Date dataCadastro;
-
-	@Column(name = "data_alteracao")
-	private Date dataAlteracao;
-
-	@Column(name = "excluido")
-	private boolean excluido;
+	private String cidade;
+	private String uf;
 
 }

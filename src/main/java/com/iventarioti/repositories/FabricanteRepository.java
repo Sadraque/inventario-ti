@@ -1,10 +1,10 @@
 package com.iventarioti.repositories;
 
+import com.iventarioti.domain.Fabricante;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import com.iventarioti.domain.Colaborador;
 
 @Repository
-public interface ColaboradorRepository extends AbstractRepository<Colaborador>, JpaRepository<Colaborador, Long>{
+public interface FabricanteRepository extends AbstractRepository<Fabricante>, JpaRepository<Fabricante, Long> {
 
 }

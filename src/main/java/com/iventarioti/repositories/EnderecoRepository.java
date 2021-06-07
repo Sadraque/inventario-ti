@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.iventarioti.domain.Endereco;
 
 @Repository
-public interface EnderecoRepository extends JpaRepository<Endereco, Long>{
+public interface EnderecoRepository extends AbstractRepository<Endereco>, JpaRepository<Endereco, Long> {
 
 }

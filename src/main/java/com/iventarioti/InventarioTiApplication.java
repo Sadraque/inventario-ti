@@ -1,17 +1,10 @@
 package com.iventarioti;
 
-import java.util.Arrays;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import com.iventarioti.domain.Cidade;
-import com.iventarioti.domain.Colaborador;
-import com.iventarioti.domain.Cpu;
-import com.iventarioti.domain.Endereco;
-import com.iventarioti.repositories.CidadeRepository;
 import com.iventarioti.repositories.ColaboradorRepository;
 import com.iventarioti.repositories.CpuRepository;
 import com.iventarioti.repositories.EnderecoRepository;
@@ -21,9 +14,6 @@ public class InventarioTiApplication  implements CommandLineRunner {
 	
 	@Autowired
 	EnderecoRepository enderecoRepositoty;
-	
-	@Autowired
-	CidadeRepository cidadeRepositoty;
 	
 	@Autowired
 	CpuRepository cpuRepositoty;

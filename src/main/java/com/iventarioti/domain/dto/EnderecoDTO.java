@@ -8,6 +8,8 @@ public class EnderecoDTO {
 	private String endereco;
 	private Integer numero;
 	private String bairro;
+	private String complemento;
 	private Integer cep;
-	private CidadeDTO cidadeDTO;
+	private String cidade;
+	private String uf;
 }

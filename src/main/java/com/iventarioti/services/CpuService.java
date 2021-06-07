@@ -1,3 +1,4 @@
+/*
 package com.iventarioti.services;
 
 import java.util.ArrayList;
@@ -59,20 +60,22 @@ public class CpuService {
 	
 	public void delete(Long id) {
 		CpuDTO cpu = findCpuById(id);
+*/
 /*
 		if(cpu != null) {
 			cpu.setExcluido(true);
 			saveOrUpdate(cpu);
-		}*/
+		}*//*
+
 	}
 	
 	public void save(CpuSaveDTO cpu) {
 		Cpu cpuEntity = typeConverter.parseToEntity(cpu, Cpu.class);
 
 		if (cpu.getColaborador().equals(null)) {
-			cpuEntity.setStatus(CpuStatus.DISPONIVEL.getStatus());
+			cpuEntity.setStatus(CpuStatus.DISPONIVEL);
 		} else {
-			cpuEntity.setStatus(CpuStatus.EM_USO.getStatus());
+			cpuEntity.setStatus(CpuStatus.EM_USO);
 		}
 
 		cpuEntity.setDataCadastro(dateCreator.getDate());
@@ -94,3 +97,4 @@ public class CpuService {
 		return findCpuById(id) == null ? true : false;
 	}
 }
+*/

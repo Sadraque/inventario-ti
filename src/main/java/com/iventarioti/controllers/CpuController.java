@@ -1,3 +1,4 @@
+/*
 package com.iventarioti.controllers;
 
 import com.iventarioti.domain.dto.CpuDTO;
@@ -52,6 +53,7 @@ public class CpuResource {
 		}
 	}
 	
+*/
 /*	@DeleteMapping(value = "")
 	public ResponseEntity<?> deletar(@RequestBody Cpu cpu) {
 		try {
@@ -63,7 +65,8 @@ public class CpuResource {
 			return ResponseEntity.notFound().build();
 		}
 
-	}*/
+	}*//*
+
 	
     @PostMapping(value = "")
 	public ResponseEntity<?> adicionar(@RequestBody CpuSaveDTO cpu) {
@@ -79,3 +82,4 @@ public class CpuResource {
 		return ResponseEntity.ok().build();
 	}
 }
+*/
