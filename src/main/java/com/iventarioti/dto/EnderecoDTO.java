@@ -4,6 +4,8 @@ import com.iventarioti.domain.Endereco;
 import lombok.*;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class EnderecoDTO {
 	private Long id;
 	private String endereco;

@@ -4,6 +4,8 @@ import com.iventarioti.domain.Colaborador;
 import lombok.*;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class ColaboradorDTO {
 	private Long id;
 	private String nome;

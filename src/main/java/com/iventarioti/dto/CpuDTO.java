@@ -4,6 +4,8 @@ import com.iventarioti.domain.Cpu;
 import lombok.*;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class CpuDTO {
 	private Long id;
 	private FabricanteDTO fabricante;
