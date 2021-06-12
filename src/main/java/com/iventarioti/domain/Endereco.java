@@ -2,26 +2,46 @@ package com.iventarioti.domain;
 
 import javax.persistence.*;
 
+import com.sun.istack.NotNull;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
+import java.io.Serializable;
+
+
 @Entity
 @Table(name = "t_endereco")
-@ToString
-@SuperBuilder
-@EqualsAndHashCode(callSuper = true)
+@EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
-@Getter
-@Setter
-public class Endereco extends BasicEntity {
+@Data
+public class Endereco implements Serializable {
+	private static final long serialVersionUID = 1L;
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.TABLE)
+	@Column(name = "codigo")
+	private Long id;
+
+	@NotNull
+	@Column(name = "logradouro", nullable = false)
 	private String endereco;
+
+	@Column(name = "numero")
 	private Integer numero;
+
+	@Column(name = "bairro")
 	private String bairro;
+
+	@Column(name = "complemento")
 	private String complemento;
+
+	@Column(name = "cep")
 	private Integer cep;
-	private String cidade;
-	private String uf;
+
+	@NotNull
+	@ManyToOne
+	@JoinColumn(name = "fk_cidade", nullable = false)
+	private Cidade cidade;
 
 }

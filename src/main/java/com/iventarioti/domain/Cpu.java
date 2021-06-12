@@ -5,23 +5,36 @@ import com.iventarioti.enums.CpuStatus;
 import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
+import java.util.Date;
 
 @Entity
 @Table(name = "t_cpu")
-@ToString
 @EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
-@Getter
-@Setter
-public class Cpu extends BasicEntity {
+@Data
+public class Cpu implements Serializable {
+	private static final long serialVersionUID = 1L;
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.TABLE)
+	@Column(name = "codigo")
+	private Long id;
+
+	@Column(name = "modelo")
 	private String modelo;
+
+	@Column(name = "ano")
 	private Integer ano;
+
+	@Column(name = "observacao")
 	private String observacao;
+
+	@Column(name = "processador")
 	private String processador;
 
-
+	@Column(name = "status")
 	@Enumerated(EnumType.STRING)
 	private CpuStatus status;
 
@@ -29,7 +42,7 @@ public class Cpu extends BasicEntity {
 	private String numeroSerie;
 
 	@Column(name = "memoria_ram")
-	private Integer memoria;
+	private Integer memoriaRam;
 
 	@Column(name = "memoria_hdd")
 	private Integer hdd;
@@ -37,10 +50,21 @@ public class Cpu extends BasicEntity {
 	@Column(name = "memoria_ssd")
 	private Integer ssd;
 
-	@Column(name = "fk_colaborador")
-	private Long colaborador;
+	@OneToOne
+	@JoinColumn(name = "fk_colaborador")
+	private Colaborador colaborador;
 
-	@Column(name = "fk_fabricante")
-	private Long fabricante;
+	@ManyToOne
+	@JoinColumn(name = "fk_fabricante")
+	private Fabricante fabricante;
+
+	@Column(name = "data_cadastro")
+	private Date dataCadastro;
+
+	@Column(name = "data_alteracao")
+	private Date dataAlteracao;
+
+	@Column(name = "excluido")
+	private Boolean excluido;
 
 }

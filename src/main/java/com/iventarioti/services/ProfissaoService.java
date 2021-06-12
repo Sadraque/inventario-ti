@@ -1,87 +1,82 @@
 package com.iventarioti.services;
 
 import com.iventarioti.domain.Profissao;
-import com.iventarioti.exceptions.InventarioTiBadRequest;
+import com.iventarioti.dto.ProfissaoDTO;
 import com.iventarioti.exceptions.InventarioTiNotFoundException;
 import com.iventarioti.repositories.ProfissaoRepository;
-import com.iventarioti.util.DateCreator;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
 public class ProfissaoService {
 
-	@Autowired
-	private ProfissaoRepository profissaoRepository;
+    @Autowired
+    private ProfissaoRepository profissaoRepository;
 
-	@Autowired
-	DateCreator dateCreator;
+    public ProfissaoDTO findById(Long id) {
+        Optional<Profissao> profissao = this.profissaoRepository.findById(id);
 
-	public Optional<Profissao> findById(Long id) {
-		validateId(id);
+        if(profissao.isEmpty()) {
+            throw new InventarioTiNotFoundException("Profissão não encontrada.");
+        }
 
-		Optional<Profissao> profissao = this.profissaoRepository.findById(id);
+        return new ProfissaoDTO(profissao.get());
+    }
 
-		if(profissao.isEmpty() || profissao.equals(null))
-			throw new InventarioTiNotFoundException("nenhum registro encontrado");
+    public List<ProfissaoDTO> findAll() {
+        List<Profissao> list = this.profissaoRepository.findAll();
 
-		return profissao;
-	}
+        if(list.isEmpty()) {
+            throw new InventarioTiNotFoundException("Nenhuma Profissao encontrada.");
+        }
 
-	public List<Profissao> findAll() {
-		List<Profissao> obj = profissaoRepository.findAll();
+        List<ProfissaoDTO> profissoes = new ArrayList<>();
 
-		return obj;
-	}
+        list.forEach(profissao -> {
+            profissoes.add(new ProfissaoDTO(profissao));
+        });
 
-	public void delete(Long id) throws EmptyResultDataAccessException {
-		validateId(id);
+        return profissoes;
+    }
 
-		try {
-			Profissao profissao = this.profissaoRepository.findById(id).get();
+    public ProfissaoDTO save(ProfissaoDTO dto) {
+        return new ProfissaoDTO(this.profissaoRepository.save(dtoToEntity(dto)));
+    }
 
-			profissao.setExcluido(true);
+    public ProfissaoDTO update(Long id, ProfissaoDTO dto) {
+        Optional<Profissao> entity = this.profissaoRepository.findById(id);
 
-			this.profissaoRepository.save(setDateChange(profissao));
+        if(entity.isEmpty()) {
+            throw new InventarioTiNotFoundException("Profissão não encontrada.");
+        }
 
-		} catch (NoSuchElementException e) {
-			throw new InventarioTiNotFoundException("Id não existe");
-		}
-	}
+        entity.get().setTitulo(dto.getTitulo());
+        entity.get().setDescricao(dto.getDescricao());
 
-	public void save(Profissao profissao) {
-		profissaoRepository.save(setDateChange(setDateRegister(profissao)));
-	}
-	
-	public void update(Profissao profissao) {
-		validateId(profissao.getId());
+        this.profissaoRepository.save(entity.get());
 
-		if(findById(profissao.getId()).isEmpty()) {
-			throw new InventarioTiNotFoundException("Id não existe");
-		}
+        dto.setId(id);
+        return dto;
+    }
 
-		profissaoRepository.save(setDateChange(profissao));
-	}
+    public void delete(Long id) {
+        if(this.profissaoRepository.findById(id).isEmpty()) {
+            throw new InventarioTiNotFoundException("Profissão não encontrada.");
+        }
 
-	private void validateId(Long id) {
-		if(id.equals(null) || id == 0)
-			throw new InventarioTiBadRequest("Id inválido");
-	}
+        this.profissaoRepository.deleteById(id);
+    }
 
-	private Profissao setDateChange(Profissao profissao) {
-		profissao.setDataAlteracao(dateCreator.getDate());
+    private Profissao dtoToEntity(ProfissaoDTO dto) {
+        Profissao profissao = new Profissao();
 
-		return profissao;
-	}
+        profissao.setTitulo(dto.getTitulo());
+        profissao.setDescricao(dto.getDescricao());
 
-	private Profissao setDateRegister(Profissao profissao) {
-		profissao.setDataCadastro(dateCreator.getDate());
-
-		return profissao;
-	}
+        return profissao;
+    }
 }

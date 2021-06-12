@@ -1,20 +1,23 @@
 package com.iventarioti.domain;
 
 import lombok.*;
-import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "t_profissao")
-@ToString
-@SuperBuilder
-@EqualsAndHashCode(callSuper = true)
+@EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
-@Getter
-@Setter
-public class Profissao extends BasicEntity {
+@Data
+public class Profissao implements Serializable {
+    private static final long serialVersionUID = 1L;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "codigo")
+    private Long id;
 
     private String titulo;
     private String descricao;
