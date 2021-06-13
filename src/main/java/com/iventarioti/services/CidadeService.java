@@ -85,7 +85,6 @@ public class CidadeService {
 
         this.cidadeRepository.save(entity.get());
 
-        dto.setId(id);
         return new CidadeDTO(entity.get());
     }
 

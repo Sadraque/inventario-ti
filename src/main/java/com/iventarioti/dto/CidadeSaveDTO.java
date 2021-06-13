@@ -9,7 +9,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CidadeSaveDTO {
-    private Long id;
     private String nome;
     private Long estado;
     private Boolean capital;
