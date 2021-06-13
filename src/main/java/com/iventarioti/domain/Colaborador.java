@@ -4,6 +4,7 @@ import javax.persistence.*;
 
 import com.sun.istack.NotNull;
 import lombok.*;
+import org.hibernate.annotations.Where;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -14,6 +15,7 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
+@Where(clause = "excluido = false")
 public class Colaborador implements Serializable {
 	private static final long serialVersionUID = 1L;
 

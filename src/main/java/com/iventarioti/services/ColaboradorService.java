@@ -1,0 +1,144 @@
+package com.iventarioti.services;
+
+import com.iventarioti.domain.Colaborador;
+import com.iventarioti.domain.Endereco;
+import com.iventarioti.domain.Profissao;
+import com.iventarioti.dto.ColaboradorDTO;
+import com.iventarioti.dto.ColaboradorSaveDTO;
+import com.iventarioti.exceptions.InventarioTiBadRequest;
+import com.iventarioti.exceptions.InventarioTiNotFoundException;
+import com.iventarioti.repositories.ColaboradorRepository;
+import com.iventarioti.repositories.EnderecoRepository;
+import com.iventarioti.repositories.ProfissaoRepository;
+import com.iventarioti.util.DateCreator;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
+@Service
+public class ColaboradorService {
+
+    @Autowired
+    private ColaboradorRepository colaboradorRepository;
+
+    @Autowired
+    private ProfissaoRepository profissaoRepository;
+
+    @Autowired
+    private EnderecoRepository enderecoRepository;
+
+    @Autowired
+    private DateCreator dateCreator;
+
+    public ColaboradorDTO findById(Long id) {
+        Optional<Colaborador> colaborador = this.colaboradorRepository.findById(id);
+
+        if(colaborador.isEmpty()) {
+            throw new InventarioTiNotFoundException("Colaborador não encontrado.");
+        }
+
+        return new ColaboradorDTO(colaborador.get());
+    }
+
+    public List<ColaboradorDTO> findAll() {
+        List<Colaborador> list = this.colaboradorRepository.findAll();
+
+        if(list.isEmpty()) {
+            throw new InventarioTiNotFoundException("Nenhum Colaborador encontrado.");
+        }
+
+        List<ColaboradorDTO> colaboradores = new ArrayList<>();
+
+        list.forEach(colaborador -> {
+            colaboradores.add(new ColaboradorDTO(colaborador));
+        });
+
+        return colaboradores;
+    }
+
+    public ColaboradorDTO save(ColaboradorSaveDTO dto) {
+        Colaborador colaborador = new Colaborador();
+
+        Optional<Endereco> endereco = this.enderecoRepository.findById(dto.getEndereco());
+
+        if(endereco.isEmpty()) {
+            throw new InventarioTiBadRequest("Endereco não existe. Forneca um Id para uma Endereco existente");
+        }
+
+        Optional<Profissao> profissao = this.profissaoRepository.findById(dto.getProfissao());
+
+        if(endereco.isEmpty()) {
+            throw new InventarioTiBadRequest("Profissao não existe. Forneca um Id para uma Profissao existente");
+        }
+
+        colaborador.setNome(dto.getNome());
+        colaborador.setEmail(dto.getEmail());
+        colaborador.setTelefone(dto.getTelefone());
+        colaborador.setProfissao(profissao.get());
+        colaborador.setEndereco(endereco.get());
+        colaborador.setDataCadastro(dateCreator.getDate());
+        colaborador.setDataAlteracao(colaborador.getDataCadastro());
+        colaborador.setExcluido(false);
+
+        this.colaboradorRepository.save(colaborador);
+
+        return new ColaboradorDTO(colaborador);
+    }
+
+    public ColaboradorDTO update(Long id, ColaboradorSaveDTO dto) {
+        Optional<Colaborador> entity = this.colaboradorRepository.findById(id);
+
+        if(entity.isEmpty()) {
+            throw new InventarioTiNotFoundException("Colaborador não encontrado.");
+        }
+
+        Optional<Endereco> endereco = this.enderecoRepository.findById(dto.getEndereco());
+
+        if(endereco.isEmpty()) {
+            throw new InventarioTiBadRequest("Endereco não existe. Forneca um Id para uma Endereco existente");
+        }
+
+        Optional<Profissao> profissao = this.profissaoRepository.findById(dto.getProfissao());
+
+        if(profissao.isEmpty()) {
+            throw new InventarioTiBadRequest("Profissao não existe. Forneca um Id para uma Profissao existente");
+        }
+
+        entity.get().setNome(dto.getNome());
+        entity.get().setEmail(dto.getEmail());
+        entity.get().setTelefone(dto.getTelefone());
+        entity.get().setProfissao(profissao.get());
+        entity.get().setEndereco(endereco.get());
+
+        this.colaboradorRepository.save(setChangeDate(entity.get()));
+
+        return new ColaboradorDTO(entity.get());
+    }
+
+    public void delete(Long id) {
+        Optional<Colaborador> colaborador = this.colaboradorRepository.findById(id);
+
+        if(colaborador.isEmpty()) {
+            throw new InventarioTiNotFoundException("Colaborador não encontrado.");
+        }
+
+        colaborador.get().setExcluido(true);
+
+        this.colaboradorRepository.save(setChangeDate(colaborador.get()));
+    }
+
+    private Colaborador setChangeDate(Colaborador colaborador) {
+        colaborador.setDataAlteracao(dateCreator.getDate());
+
+        return colaborador;
+    }
+
+    private Colaborador setRegistrerDate(Colaborador colaborador) {
+        colaborador.setDataCadastro(dateCreator.getDate());
+
+        return colaborador;
+    }
+}
