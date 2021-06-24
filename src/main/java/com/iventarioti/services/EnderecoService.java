@@ -4,7 +4,7 @@ import com.iventarioti.domain.Endereco;
 import com.iventarioti.domain.Cidade;
 import com.iventarioti.dto.EnderecoDTO;
 import com.iventarioti.dto.EnderecoSaveDTO;
-import com.iventarioti.exceptions.InventarioTiBadRequest;
+import com.iventarioti.exceptions.InventarioTiBadRequestException;
 import com.iventarioti.exceptions.InventarioTiNotFoundException;
 import com.iventarioti.repositories.CidadeRepository;
 import com.iventarioti.repositories.EnderecoRepository;
@@ -54,7 +54,7 @@ public class EnderecoService {
         Optional<Cidade> cidade = this.cidadeRepository.findById(dto.getCidade());
 
         if(cidade.isEmpty()) {
-            throw new InventarioTiBadRequest("Cidade não existe. Forneca um Id para uma Cidade existente");
+            throw new InventarioTiBadRequestException("Cidade não existe. Forneca um Id para uma Cidade existente");
         }
 
         Endereco endereco = new Endereco();
@@ -79,7 +79,7 @@ public class EnderecoService {
         Optional<Cidade> cidade = this.cidadeRepository.findById(dto.getCidade());
 
         if(cidade.isEmpty()) {
-            throw new InventarioTiBadRequest("Cidade não existe. Forneca um Id para uma Cidade existente");
+            throw new InventarioTiBadRequestException("Cidade não existe. Forneca um Id para uma Cidade existente");
         }
 
         entity.get().setEndereco(dto.getEndereco());

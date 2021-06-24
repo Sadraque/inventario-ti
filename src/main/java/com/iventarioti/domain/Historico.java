@@ -1,19 +1,19 @@
 package com.iventarioti.domain;
 
-import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 
 @Entity
-@Table(name = "t_estado")
+@Table(name = "t_historico")
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class Estado implements Serializable {
+public class Historico implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -21,11 +21,15 @@ public class Estado implements Serializable {
     @Column(name = "codigo")
     private Long id;
 
-    @NotNull
-    @Column(name = "nome", nullable = false)
-    private String nome;
+    @Column(name = "fk_cpu")
+    private Long fk_cpu;
 
-    @NotNull
-    @Column(name = "sigla", nullable = false)
-    private String uf;
+    @Column(name = "fk_colaborador")
+    private Long fk_colaborador;
+
+    @Column(name = "motivo")
+    private String motivo;
+
+    @Column(name = "data_cadastro")
+    private Date dataCadastro;
 }

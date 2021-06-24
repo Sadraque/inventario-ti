@@ -1,8 +1,10 @@
 package com.iventarioti.domain;
 
-import com.iventarioti.enums.CpuStatus;
+import com.iventarioti.enums.CpuStatusEnum;
 
 import lombok.*;
+import org.hibernate.annotations.Where;
+import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -14,11 +16,12 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
+@Where(clause = "excluido = false")
 public class Cpu implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.TABLE)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "codigo")
 	private Long id;
 
@@ -36,7 +39,7 @@ public class Cpu implements Serializable {
 
 	@Column(name = "status")
 	@Enumerated(EnumType.STRING)
-	private CpuStatus status;
+	private CpuStatusEnum status;
 
 	@Column(name = "numero_serie")
 	private String numeroSerie;
@@ -52,6 +55,7 @@ public class Cpu implements Serializable {
 
 	@OneToOne
 	@JoinColumn(name = "fk_colaborador")
+	@Nullable
 	private Colaborador colaborador;
 
 	@ManyToOne

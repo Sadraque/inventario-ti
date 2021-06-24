@@ -11,7 +11,6 @@ import java.util.Date;
 
 @Entity
 @Table(name = "t_colaborador")
-@EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
@@ -20,7 +19,7 @@ public class Colaborador implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.TABLE)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "codigo")
 	private Long id;
 

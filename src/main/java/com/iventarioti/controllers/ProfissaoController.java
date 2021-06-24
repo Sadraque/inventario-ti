@@ -1,8 +1,6 @@
 package com.iventarioti.controllers;
 
 import com.iventarioti.dto.ProfissaoDTO;
-import com.iventarioti.exceptions.InventarioTiBadRequest;
-import com.iventarioti.exceptions.InventarioTiNotFoundException;
 import com.iventarioti.services.ProfissaoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

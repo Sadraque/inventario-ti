@@ -1,5 +1,6 @@
 package com.iventarioti.dto;
 
+import com.iventarioti.domain.Colaborador;
 import com.iventarioti.domain.Cpu;
 import lombok.*;
 
@@ -32,6 +33,20 @@ public class CpuDTO {
 		this.ssd = cpu.getSsd();
 		this.status = cpu.getStatus().name();
 		this.observacao = cpu.getObservacao();
-		this.colaborador = new ColaboradorDTO(cpu.getColaborador());
+	}
+
+	public CpuDTO(Cpu cpu, Colaborador colaborador) {
+		this.id = cpu.getId();
+		this.fabricante = new FabricanteDTO(cpu.getFabricante());
+		this.modelo = cpu.getModelo();
+		this.ano = cpu.getAno();
+		this.numeroSerie = cpu.getNumeroSerie();
+		this.processador = cpu.getProcessador();
+		this.memoriaRam = cpu.getMemoriaRam();
+		this.hdd = cpu.getHdd();
+		this.ssd = cpu.getSsd();
+		this.status = cpu.getStatus().name();
+		this.observacao = cpu.getObservacao();
+		this.colaborador = new ColaboradorDTO(colaborador);
 	}
 }

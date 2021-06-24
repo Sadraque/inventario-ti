@@ -4,14 +4,12 @@ import javax.persistence.*;
 
 import com.sun.istack.NotNull;
 import lombok.*;
-import lombok.experimental.SuperBuilder;
 
 import java.io.Serializable;
 
 
 @Entity
 @Table(name = "t_endereco")
-@EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
@@ -19,7 +17,7 @@ public class Endereco implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.TABLE)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "codigo")
 	private Long id;
 

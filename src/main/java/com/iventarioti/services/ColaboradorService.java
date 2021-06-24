@@ -5,7 +5,7 @@ import com.iventarioti.domain.Endereco;
 import com.iventarioti.domain.Profissao;
 import com.iventarioti.dto.ColaboradorDTO;
 import com.iventarioti.dto.ColaboradorSaveDTO;
-import com.iventarioti.exceptions.InventarioTiBadRequest;
+import com.iventarioti.exceptions.InventarioTiBadRequestException;
 import com.iventarioti.exceptions.InventarioTiNotFoundException;
 import com.iventarioti.repositories.ColaboradorRepository;
 import com.iventarioti.repositories.EnderecoRepository;
@@ -65,13 +65,13 @@ public class ColaboradorService {
         Optional<Endereco> endereco = this.enderecoRepository.findById(dto.getEndereco());
 
         if(endereco.isEmpty()) {
-            throw new InventarioTiBadRequest("Endereco não existe. Forneca um Id para uma Endereco existente");
+            throw new InventarioTiBadRequestException("Endereco não existe. Forneca um Id para uma Endereco existente");
         }
 
         Optional<Profissao> profissao = this.profissaoRepository.findById(dto.getProfissao());
 
         if(endereco.isEmpty()) {
-            throw new InventarioTiBadRequest("Profissao não existe. Forneca um Id para uma Profissao existente");
+            throw new InventarioTiBadRequestException("Profissao não existe. Forneca um Id para uma Profissao existente");
         }
 
         colaborador.setNome(dto.getNome());
@@ -98,13 +98,13 @@ public class ColaboradorService {
         Optional<Endereco> endereco = this.enderecoRepository.findById(dto.getEndereco());
 
         if(endereco.isEmpty()) {
-            throw new InventarioTiBadRequest("Endereco não existe. Forneca um Id para uma Endereco existente");
+            throw new InventarioTiBadRequestException("Endereco não existe. Forneca um Id para uma Endereco existente");
         }
 
         Optional<Profissao> profissao = this.profissaoRepository.findById(dto.getProfissao());
 
         if(profissao.isEmpty()) {
-            throw new InventarioTiBadRequest("Profissao não existe. Forneca um Id para uma Profissao existente");
+            throw new InventarioTiBadRequestException("Profissao não existe. Forneca um Id para uma Profissao existente");
         }
 
         entity.get().setNome(dto.getNome());

@@ -1,7 +1,6 @@
 package com.iventarioti.domain;
 
 import lombok.*;
-import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -9,7 +8,6 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "t_fabricante")
-@EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
@@ -17,7 +15,7 @@ public class Fabricante implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "codigo")
     private Long id;
 
