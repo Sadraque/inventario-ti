@@ -8,7 +8,7 @@ import com.iventarioti.exceptions.InventarioTiBadRequestException;
 import com.iventarioti.exceptions.InventarioTiNotFoundException;
 import com.iventarioti.repositories.CidadeRepository;
 import com.iventarioti.repositories.EstadoRepository;
-import com.iventarioti.util.TypeConverter;
+import com.iventarioti.util.TypeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,7 +28,7 @@ public class CidadeService {
         Optional<Cidade> cidade = this.cidadeRepository.findById(id);
         cidadeExists(cidade);
 
-        return TypeConverter.parseToDTO(cidade.get(), CidadeDTO.class);
+        return TypeUtils.parseToDTO(cidade.get(), CidadeDTO.class);
     }
 
     public List<CidadeDTO> findAll() {
@@ -36,17 +36,17 @@ public class CidadeService {
 
         cidadeExists(cidades);
 
-        return TypeConverter.parseToDTO(cidades, CidadeDTO.class);
+        return TypeUtils.parseToDTO(cidades, CidadeDTO.class);
     }
 
     public CidadeDTO save(CidadeSaveDTO dto) {
         Optional<Estado> estado = this.estadoRepository.findById(dto.getEstado());
         estadoExists(estado);
 
-        Cidade cidade = TypeConverter.parseToEntity(dto, Cidade.class);
+        Cidade cidade = TypeUtils.parseToEntity(dto, Cidade.class);
         cidade.setEstado(estado.get());
 
-        return TypeConverter.parseToDTO(this.cidadeRepository.save(cidade), CidadeDTO.class);
+        return TypeUtils.parseToDTO(this.cidadeRepository.save(cidade), CidadeDTO.class);
     }
 
     public CidadeDTO update(Long id, CidadeSaveDTO dto) {
@@ -55,10 +55,10 @@ public class CidadeService {
         Optional<Estado> estado = this.estadoRepository.findById(dto.getEstado());
         estadoExists(estado);
 
-        Cidade cidade = TypeConverter.parseToEntity(dto, Cidade.class);
+        Cidade cidade = TypeUtils.parseToEntity(dto, Cidade.class);
         cidade.setEstado(estado.get());
 
-        return TypeConverter.parseToDTO(this.cidadeRepository.save(cidade), CidadeDTO.class);
+        return TypeUtils.parseToDTO(this.cidadeRepository.save(cidade), CidadeDTO.class);
     }
 
     public void delete(Long id) {

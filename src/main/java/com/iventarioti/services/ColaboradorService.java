@@ -10,7 +10,7 @@ import com.iventarioti.exceptions.InventarioTiNotFoundException;
 import com.iventarioti.repositories.ColaboradorRepository;
 import com.iventarioti.repositories.EnderecoRepository;
 import com.iventarioti.repositories.ProfissaoRepository;
-import com.iventarioti.util.DateCreator;
+import com.iventarioti.util.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,9 +29,6 @@ public class ColaboradorService {
 
     @Autowired
     private EnderecoRepository enderecoRepository;
-
-    @Autowired
-    private DateCreator dateCreator;
 
     public ColaboradorDTO findById(Long id) {
         Optional<Colaborador> colaborador = this.colaboradorRepository.findById(id);
@@ -79,7 +76,7 @@ public class ColaboradorService {
         colaborador.setTelefone(dto.getTelefone());
         colaborador.setProfissao(profissao.get());
         colaborador.setEndereco(endereco.get());
-        colaborador.setDataCadastro(dateCreator.getDate());
+        colaborador.setDataCadastro(DateUtils.getCurrentDate());
         colaborador.setDataAlteracao(colaborador.getDataCadastro());
         colaborador.setExcluido(false);
 
@@ -131,13 +128,13 @@ public class ColaboradorService {
     }
 
     private Colaborador setChangeDate(Colaborador colaborador) {
-        colaborador.setDataAlteracao(dateCreator.getDate());
+        colaborador.setDataAlteracao(DateUtils.getCurrentDate());
 
         return colaborador;
     }
 
     private Colaborador setRegistrerDate(Colaborador colaborador) {
-        colaborador.setDataCadastro(dateCreator.getDate());
+        colaborador.setDataCadastro(DateUtils.getCurrentDate());
 
         return colaborador;
     }

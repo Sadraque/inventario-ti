@@ -13,11 +13,13 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
+@Builder
 public class Endereco implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@SequenceGenerator(name = "sq_endereco", allocationSize = 1)
+	@GeneratedValue(generator = "sq_endereco")
 	@Column(name = "codigo")
 	private Long id;
 

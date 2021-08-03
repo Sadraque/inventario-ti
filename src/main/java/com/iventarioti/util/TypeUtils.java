@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TypeConverter {
+public class TypeUtils {
 
     private static ModelMapper modelMapper = new ModelMapper();
 

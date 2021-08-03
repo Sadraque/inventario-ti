@@ -15,17 +15,23 @@ import com.iventarioti.exceptions.InventarioTiNotFoundException;
 import com.iventarioti.repositories.CpuRepository;
 import com.iventarioti.repositories.FabricanteRepository;
 import com.iventarioti.repositories.ColaboradorRepository;
-import com.iventarioti.util.DateCreator;
-import com.iventarioti.util.TypeConverter;
+import com.iventarioti.util.DateUtils;
+import com.iventarioti.util.TypeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class CpuService {
+
+    @PersistenceContext
+    private EntityManager entityManager;
 
     @Autowired
     private CpuRepository cpuRepository;
@@ -37,10 +43,9 @@ public class CpuService {
     private FabricanteRepository fabricanteRepository;
 
     @Autowired
-    private DateCreator dateCreator;
-
-    @Autowired
     private HistoricoService historicoService;
+
+    private Long ID_COLABORADOR_SISTEMA = 2000000L;
 
     public CpuDTO findById(Long id) {
         Optional<Cpu> cpu = this.cpuRepository.findById(id);
@@ -77,8 +82,10 @@ public class CpuService {
     }
 
     public CpuDTO save(CpuSaveDTO dto) {
-        Cpu cpu = new Cpu();
-        Historico historico = new Historico();
+        Colaborador cpuColaborador = null;
+        CpuStatusEnum cpuStatus = CpuStatusEnum.DISPONIVEL;
+        MotivoHistoricoEnum motivoHistorico = MotivoHistoricoEnum.CADASTRO;
+        Long idColaboradorHistorico = this.ID_COLABORADOR_SISTEMA;
 
         Optional<Fabricante> fabricante = this.fabricanteRepository.findById(dto.getFabricante());
 
@@ -93,43 +100,48 @@ public class CpuService {
                 throw new InventarioTiBadRequestException("Colaborador não existe. Forneca um Id para uma Colaborador existente");
             }
 
-            cpu.setColaborador(colaborador.get());
-            cpu.setStatus(CpuStatusEnum.EM_USO);
-
-            historico.setFk_colaborador(colaborador.get().getId());
-            historico.setMotivo(MotivoHistoricoEnum.EMPRESTIMO.getMotivoHistorico());
-
-        } else {
-            cpu.setStatus(CpuStatusEnum.DISPONIVEL);
-            historico.setMotivo(MotivoHistoricoEnum.CADASTRO.getMotivoHistorico());
-            historico.setFk_colaborador(2000000L);
+            cpuColaborador = colaborador.get();
+            cpuStatus = CpuStatusEnum.EM_USO;
+            idColaboradorHistorico = colaborador.get().getId();
+            motivoHistorico = MotivoHistoricoEnum.EMPRESTIMO;
         }
 
-        cpu.setAno(dto.getAno());
-        cpu.setHdd(dto.getHdd());
-        cpu.setSsd(dto.getSsd());
-        cpu.setMemoriaRam(dto.getMemoriaRam());
-        cpu.setModelo(dto.getModelo());
-        cpu.setObservacao(dto.getObservacao());
-        cpu.setNumeroSerie(dto.getNumeroSerie());
-        cpu.setProcessador(dto.getProcessador());
-        cpu.setFabricante(fabricante.get());
-        cpu.setDataCadastro(dateCreator.getDate());
-        cpu.setDataAlteracao(cpu.getDataCadastro());
-        cpu.setExcluido(false);
+        Date dateNow = DateUtils.getCurrentDate();
+
+        Cpu cpu = Cpu.builder()
+                .ano(dto.getAno())
+                .hdd(dto.getHdd())
+                .ssd(dto.getSsd())
+                .memoriaRam(dto.getMemoriaRam())
+                .modelo(dto.getModelo())
+                .observacao(dto.getObservacao())
+                .numeroSerie(dto.getNumeroSerie())
+                .processador(dto.getProcessador())
+                .fabricante(fabricante.get())
+                .dataCadastro(dateNow)
+                .dataAlteracao(dateNow)
+                .status(cpuStatus)
+                .colaborador(cpuColaborador)
+                .excluido(false)
+                .build();
 
         cpu = this.cpuRepository.save(cpu);
+        entityManager.detach(cpu);
 
-        historico.setFk_cpu(cpu.getId());
-        historico.setDataCadastro(cpu.getDataCadastro());
+        Historico historico = Historico.builder()
+                .fkCpu(cpu.getId())
+                .fkColaborador(idColaboradorHistorico)
+                .dataCadastro(dateNow)
+                .motivo(motivoHistorico.getMotivoHistorico())
+                .build();
 
         this.historicoService.save(historico);
 
-        CpuDTO cpuDTO = TypeConverter.parseToDTO(cpu, CpuDTO.class);
-        cpuDTO.setFabricante(TypeConverter.parseToDTO(cpu.getFabricante(), FabricanteDTO.class));
+        CpuDTO cpuDTO = TypeUtils.parseToDTO(cpu, CpuDTO.class);
+        cpuDTO.setFabricante(TypeUtils.parseToDTO(cpu.getFabricante(), FabricanteDTO.class));
 
         if(cpu.getColaborador() != null) {
-            cpuDTO.setColaborador(TypeConverter.parseToDTO(cpu.getColaborador(), ColaboradorDTO.class));
+            cpuDTO.setColaborador(TypeUtils.parseToDTO(cpu.getColaborador(), ColaboradorDTO.class));
         }
 
         return cpuDTO;
@@ -169,7 +181,7 @@ public class CpuService {
         cpu.get().setNumeroSerie(dto.getNumeroSerie());
         cpu.get().setProcessador(dto.getProcessador());
         cpu.get().setFabricante(fabricante.get());
-        cpu.get().setDataAlteracao(dateCreator.getDate());
+        cpu.get().setDataAlteracao(DateUtils.getCurrentDate());
 
         this.cpuRepository.save(cpu.get());
 
@@ -189,7 +201,7 @@ public class CpuService {
     }
 
     private Cpu setChangeDate(Cpu cpu) {
-        cpu.setDataAlteracao(dateCreator.getDate());
+        cpu.setDataAlteracao(DateUtils.getCurrentDate());
 
         return cpu;
     }

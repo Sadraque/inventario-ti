@@ -16,12 +16,14 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
+@Builder
 @Where(clause = "excluido = false")
 public class Cpu implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@SequenceGenerator(name = "sq_cpu", allocationSize = 1)
+	@GeneratedValue(generator = "sq_cpu")
 	@Column(name = "codigo")
 	private Long id;
 

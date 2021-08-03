@@ -1,31 +1,38 @@
 package com.iventarioti.domain;
 
-import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
 
-@Entity
+@Entity(name = "cidade")
 @Table(name = "t_cidade")
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
+@Builder
 public class Cidade implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "codigo")
+    @SequenceGenerator(name = "sq_cidade", allocationSize = 1)
+    @GeneratedValue(generator = "sq_cidade")
+    @Column(name = "codigo", updatable = false)
     private Long id;
 
-    @NotNull
-    @Column(name = "nome", nullable = false)
+    @Column(
+            name = "nome",
+            nullable = false
+    )
     private String nome;
 
-    @JoinColumn(name = "fk_estado")
+    @JoinColumn(
+            name = "fk_estado",
+            nullable = false
+    )
     @ManyToOne
     private Estado estado;
 

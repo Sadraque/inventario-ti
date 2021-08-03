@@ -14,12 +14,14 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
+@Builder
 @Where(clause = "excluido = false")
 public class Colaborador implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@SequenceGenerator(name = "sq_colaborador", allocationSize = 1)
+	@GeneratedValue(generator = "sq_colaborador")
 	@Column(name = "codigo")
 	private Long id;
 

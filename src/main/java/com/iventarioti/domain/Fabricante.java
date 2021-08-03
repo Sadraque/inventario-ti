@@ -11,11 +11,13 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
+@Builder
 public class Fabricante implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @SequenceGenerator(name = "sq_fabricante", allocationSize = 1)
+    @GeneratedValue(generator = "sq_fabricante")
     @Column(name = "codigo")
     private Long id;
 
